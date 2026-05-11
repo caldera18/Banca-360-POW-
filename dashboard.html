@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Banca 360 | Dashboard</title>
+
+    <link rel="icon" href="assets/isotipo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </a>
+
+        <nav class="sidebar-menu">
+          <a href="dashboard.html" class="active">
+            <i class="fa-solid fa-house"></i>
+            Inicio
+          </a>
+
+          <a href="transferencias.html">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            Transferencias
+          </a>
+
+          <a href="pago-movil.html">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            Pago móvil
+          </a>
+
+          <a href="depositos.html">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            Depósitos
+          </a>
+
+          <a href="historial.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Historial
+          </a>
+
+          <a href="perfil.html">
+            <i class="fa-regular fa-user"></i>
+            Perfil
+          </a>
+        </nav>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header">
+          <div>
+            <p class="welcome-text">Bienvenido de nuevo</p>
+            <h1>Hola, <span id="userName">Usuario</span></h1>
+          </div>
+
+          <div class="header-actions">
+            <button class="icon-btn" data-theme-toggle>
+              <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+
+            <button class="icon-btn">
+              <i class="fa-regular fa-bell"></i>
+            </button>
+
+            <button class="logout-btn" id="logoutBtn">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              Salir
+            </button>
+          </div>
+        </header>
+
+        <section class="dashboard-grid">
+          <article class="balance-card">
+            <div class="balance-card-header">
+              <div>
+                <p>Saldo disponible</p>
+                <h2 id="balanceAmount">Bs. 24.560,00</h2>
+              </div>
+
+              <button class="balance-eye" id="toggleBalanceBtn">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+
+            <p class="account-number">Cuenta corriente •••• 5678</p>
+          </article>
+
+          <article class="summary-card">
+            <h3>Resumen rápido</h3>
+
+            <div class="summary-row">
+              <span>Entradas</span>
+              <strong class="success-text">+ Bs. 1.850,00</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Salidas</span>
+              <strong class="danger-text">- Bs. 620,00</strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="quick-menu">
+          <a href="transferencias.html" class="quick-card">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <span>Transferir</span>
+          </a>
+
+          <a href="pago-movil.html" class="quick-card">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span>Pago móvil</span>
+          </a>
+
+          <a href="depositos.html" class="quick-card">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            <span>Depositar</span>
+          </a>
+
+          <a href="historial.html" class="quick-card">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Historial</span>
+          </a>
+        </section>
+
+        <section class="transactions-card">
+          <div class="section-header">
+            <h2>Últimas transacciones</h2>
+            <a href="historial.html">Ver todas</a>
+          </div>
+
+          <div class="transaction-list">
+            <article class="transaction-item">
+              <div class="transaction-icon income">
+                <i class="fa-solid fa-arrow-down"></i>
+              </div>
+
+              <div>
+                <h4>Transferencia recibida</h4>
+                <p>06 mayo 2026 • 10:45</p>
+              </div>
+
+              <strong class="success-text">+ Bs. 850,00</strong>
+            </article>
+
+            <article class="transaction-item">
+              <div class="transaction-icon outcome">
+                <i class="fa-solid fa-arrow-up"></i>
+              </div>
+
+              <div>
+                <h4>Pago móvil</h4>
+                <p>05 mayo 2026 • 15:30</p>
+              </div>
+
+              <strong class="danger-text">- Bs. 150,00</strong>
+            </article>
+
+            <article class="transaction-item">
+              <div class="transaction-icon outcome">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </div>
+
+              <div>
+                <h4>Supermercado Plaza</h4>
+                <p>04 mayo 2026 • 20:10</p>
+              </div>
+
+              <strong class="danger-text">- Bs. 220,00</strong>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

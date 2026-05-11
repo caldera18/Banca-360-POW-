@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Banca 360 | Seguridad</title>
+
+    <link rel="icon" href="assets/isotipo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+
+  <body>
+    <main class="auth-page">
+      <section class="auth-card auth-card-register">
+        <div class="auth-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </div>
+
+        <h1 class="title">Configura tu seguridad</h1>
+
+        <p class="subtitle">
+          Estas preguntas ayudarán a proteger y recuperar tu cuenta.
+        </p>
+
+        <form id="securityForm">
+          <div class="form-group">
+            <label>Pregunta 1</label>
+
+            <div class="input-wrap">
+              <i class="fa-solid fa-shield-halved"></i>
+
+              <select id="questionOne">
+                <option value="">Selecciona una pregunta</option>
+                <option value="mascota">
+                  ¿Cuál fue el nombre de tu primera mascota?
+                </option>
+                <option value="ciudad">¿En qué ciudad naciste?</option>
+                <option value="escuela">
+                  ¿Cuál fue el nombre de tu escuela?
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Respuesta 1</label>
+
+            <div class="input-wrap">
+              <i class="fa-regular fa-comment"></i>
+
+              <input
+                id="answerOne"
+                type="text"
+                placeholder="Escribe tu respuesta"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Pregunta 2</label>
+
+            <div class="input-wrap">
+              <i class="fa-solid fa-shield-halved"></i>
+
+              <select id="questionTwo">
+                <option value="">Selecciona una pregunta</option>
+                <option value="comida">¿Cuál es tu comida favorita?</option>
+                <option value="amigo">
+                  ¿Cómo se llama tu mejor amigo de infancia?
+                </option>
+                <option value="color">¿Cuál es tu color favorito?</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Respuesta 2</label>
+
+            <div class="input-wrap">
+              <i class="fa-regular fa-comment"></i>
+
+              <input
+                id="answerTwo"
+                type="text"
+                placeholder="Escribe tu respuesta"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Pregunta 3</label>
+
+            <div class="input-wrap">
+              <i class="fa-solid fa-shield-halved"></i>
+
+              <select id="questionThree">
+                <option value="">Selecciona una pregunta</option>
+                <option value="comida">¿Cuál es tu comida favorita?</option>
+                <option value="amigo">
+                  ¿Cómo se llama tu mejor amigo de infancia?
+                </option>
+                <option value="color">¿Cuál es tu color favorito?</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Respuesta 3</label>
+
+            <div class="input-wrap">
+              <i class="fa-regular fa-comment"></i>
+
+              <input
+                id="answerThree"
+                type="text"
+                placeholder="Escribe tu respuesta"
+              />
+            </div>
+          </div>
+
+          <p id="securityError" class="error"></p>
+
+          <button class="btn btn-primary">Guardar y continuar</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

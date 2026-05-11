@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Banca 360 | Registro</title>
+
+    <link rel="icon" href="assets/isotipo.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+
+  <body>
+    <main class="auth-page">
+      <section class="auth-card auth-card-register">
+        <div class="auth-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </div>
+
+        <h1 class="title">Crear cuenta</h1>
+
+        <p class="subtitle">Regístrate para comenzar a usar Banca 360.</p>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label>Nombre completo</label>
+
+            <div class="input-wrap">
+              <i class="fa-regular fa-user"></i>
+
+              <input type="text" id="name" placeholder="Ingresa tu nombre" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Correo electrónico</label>
+
+            <div class="input-wrap">
+              <i class="fa-regular fa-envelope"></i>
+
+              <input type="email" id="email" placeholder="usuario@correo.com" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Cédula</label>
+
+            <div class="input-wrap">
+              <i class="fa-regular fa-id-card"></i>
+
+              <input type="text" id="document" placeholder="V-12345678" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Contraseña</label>
+
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock"></i>
+
+              <input
+                type="password"
+                id="password"
+                placeholder="Mínimo 6 números"
+              />
+
+              <i
+                class="fa-regular fa-eye password-eye"
+                data-toggle-password="password"
+              ></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Confirmar contraseña</label>
+
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock"></i>
+
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Repite tu contraseña"
+              />
+
+              <i
+                class="fa-regular fa-eye password-eye"
+                data-toggle-password="confirmPassword"
+              ></i>
+            </div>
+          </div>
+
+          <p class="password-info">
+            La contraseña debe contener al menos 6 números.
+          </p>
+
+          <p id="registerError" class="error"></p>
+
+          <button class="btn btn-primary">Crear cuenta</button>
+        </form>
+
+        <p class="small">
+          ¿Ya tienes cuenta?
+          <a class="link" href="index.html"> Inicia sesión </a>
+        </p>
+      </section>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

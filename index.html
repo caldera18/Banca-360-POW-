@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Banca 360 | Banco digital</title>
+
+    <link rel="icon" href="assets/isotipo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+
+  <body>
+    <header class="landing-header">
+      <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </a>
+
+        <div class="navbar-links">
+          <a href="#beneficios">Beneficios</a>
+          <a href="#seguridad">Seguridad</a>
+          <a href="#servicios">Servicios</a>
+        </div>
+
+        <div class="navbar-actions">
+          <button class="btn btn-secondary" id="goLoginBtn">
+            Iniciar sesión
+          </button>
+
+          <a href="registro.html" class="btn btn-primary btn-nav">
+            Registrarse
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <span class="badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            Banca segura y moderna
+          </span>
+
+          <h1>Tu mundo financiero, en 360°.</h1>
+
+          <p>
+            Banca 360 es una plataforma digital diseñada para consultar tu
+            saldo, revisar movimientos, realizar transferencias, pagos móviles y
+            gestionar tu dinero desde una experiencia rápida, limpia y segura.
+          </p>
+
+          <div class="hero-actions">
+            <a href="registro.html" class="btn btn-primary"> Crear cuenta </a>
+
+            <button class="btn btn-secondary" id="heroLoginBtn">
+              Ya tengo cuenta
+            </button>
+          </div>
+
+          <p id="landingError" class="error landing-error"></p>
+        </div>
+
+        <div class="hero-card">
+          <div class="bank-card-preview">
+            <div>
+              <p>Saldo disponible</p>
+              <h2>Bs. 24.560,00</h2>
+            </div>
+
+            <i class="fa-regular fa-eye"></i>
+          </div>
+
+          <div class="quick-actions">
+            <div>
+              <i class="fa-solid fa-arrow-right-arrow-left"></i>
+              <span>Transferir</span>
+            </div>
+
+            <div>
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <span>Pago móvil</span>
+            </div>
+
+            <div>
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span>Historial</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section" id="beneficios">
+        <div class="section-title">
+          <h2>Beneficios principales</h2>
+          <p>Una experiencia bancaria pensada para el día a día.</p>
+        </div>
+
+        <div class="features">
+          <article class="feature-card">
+            <i class="fa-solid fa-lock"></i>
+            <h3>Seguridad avanzada</h3>
+            <p>
+              Registro seguro, preguntas de recuperación y validaciones para
+              proteger tu cuenta.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <i class="fa-solid fa-wallet"></i>
+            <h3>Control de saldo</h3>
+            <p>
+              Consulta tu saldo y ocúltalo cuando estés en espacios públicos.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>Operaciones rápidas</h3>
+            <p>
+              Transferencias, pagos móviles y depósitos simulados desde una sola
+              plataforma.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="landing-section landing-section-alt" id="seguridad">
+        <div class="section-title">
+          <h2>Diseñada para transmitir confianza</h2>
+          <p>
+            La interfaz de Banca 360 combina claridad visual, navegación
+            sencilla y componentes profesionales inspirados en la banca digital
+            moderna.
+          </p>
+        </div>
+      </section>
+
+      <section class="landing-section" id="servicios">
+        <div class="section-title">
+          <h2>Servicios disponibles</h2>
+        </div>
+
+        <div class="services-list">
+          <span>Transferencias</span>
+          <span>Pago móvil</span>
+          <span>Depósitos</span>
+          <span>Historial</span>
+          <span>Perfil</span>
+          <span>Cambio de contraseña</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/landing.js"></script>
+  </body>
+</html>
