@@ -41,81 +41,63 @@ function setupPasswordToggles() {
     });
   });
 }
+
 function setupClearErrors() {
-  const inputs = document.querySelectorAll("input");
-
-  inputs.forEach(function (input) {
-    input.addEventListener("input", function () {
-      const errorMessages = document.querySelectorAll(".error");
-
-      errorMessages.forEach(function (error) {
-        error.textContent = "";
-      });
+  const inputs = document.querySelectorAll("input, select");
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      const errorElements = document.querySelectorAll(".error");
+      errorElements.forEach((el) => (el.textContent = ""));
     });
   });
 }
 
-function handleRegister(event) {
-  event.preventDefault();
-
-  const user = getRegisterData();
-
-  const error = validateRegisterData(user);
-
-  if (error) {
-    showError("registerError", error);
-    return;
-  }
-
-  saveUser(user);
-  //te envia a la ventana de preguntas de seguridad si todo esta bien
-  window.location.href = "seguridad.html";
-}
-//Logica de registro
-function getRegisterData() {
-  return {
-    name: document.querySelector("#name").value.trim(),
-    email: document.querySelector("#email").value.trim(),
-    document: document.querySelector("#document").value.trim(),
-    password: document.querySelector("#password").value.trim(),
-    confirmPassword: document.querySelector("#confirmPassword").value.trim(),
-  };
-}
-
-function validateRegisterData(user) {
-  if (
-    !user.name ||
-    !user.email ||
-    !user.document ||
-    !user.password ||
-    !user.confirmPassword
-  ) {
-    return "Todos los datos son obligatorios";
-  }
-
-  if (!isNumericPassword(user.password)) {
-    return "La contraseña debe tener mínimo 6 caracteres numéricos.";
-  }
-
-  if (user.password !== user.confirmPassword) {
-    return "Las contraseñas no coinciden.";
-  }
-
-  return "";
-}
-
-function isNumericPassword(password) {
-  return /^[0-9]{6,}$/.test(password);
-}
-function showError(elementId, message) {
-  const errorElement = document.querySelector(`#${elementId}`);
-
+function showError(id, message) {
+  const errorElement = document.querySelector(`#${id}`);
   if (errorElement) {
     errorElement.textContent = message;
   }
 }
+//Logica de registro
+function handleRegister(event) {
+  event.preventDefault();
 
-//Logica preguntas de seguridad
+  const name = document.querySelector("#name").value.trim();
+  const email = document.querySelector("#email").value.trim();
+  const documentId = document.querySelector("#document").value.trim();
+  const password = document.querySelector("#password").value.trim();
+  const confirmPassword = document.querySelector("#confirmPassword").value.trim();
+
+  if (!name || !email || !documentId || !password || !confirmPassword) {
+    showError("registerError", "Todos los campos son obligatorios.");
+    return;
+  }
+
+  const passwordRegex = /^[0-9]{6,}$/;
+  if (!passwordRegex.test(password)) {
+    showError("registerError", "La contraseña debe tener al menos 6 números.");
+    return;
+  }
+
+  //Logica preguntas de seguridad
+  if (password !== confirmPassword) {
+    showError("registerError", "Las contraseñas no coinciden.");
+    return;
+  }
+
+  const userData = {
+    name,
+    email,
+    documentId,
+    password,
+    balance: 0,
+    transactions: []
+  };
+
+  saveUser(userData);
+  window.location.href = "seguridad.html";
+}
+
 function handleSecurityQuestions(event) {
   event.preventDefault();
 
@@ -124,7 +106,7 @@ function handleSecurityQuestions(event) {
     answerOne: document.querySelector("#answerOne").value.trim(),
     questionTwo: document.querySelector("#questionTwo").value,
     answerTwo: document.querySelector("#answerTwo").value.trim(),
-    questionThree: document.querySelector("#questionThree").value.trim(),
+    questionThree: document.querySelector("#questionThree").value,
     answerThree: document.querySelector("#answerThree").value.trim(),
   };
 
@@ -144,7 +126,6 @@ function handleSecurityQuestions(event) {
   }
 
   saveSecurityQuestions(securityData);
-
   window.location.href = "login.html";
 }
 
@@ -176,13 +157,10 @@ function handleLogin(event) {
   }
 
   loginBtn.classList.add("loading");
-  btnText.textContent = "Validando...";
-  spinner.classList.remove("hidden");
+  if (btnText) btnText.classList.add("hidden");
+  if (spinner) spinner.classList.remove("hidden");
 
-  console.log("Usuario encontrado:", user);
-  console.log("Redirigiendo al dashboard...");
-
-  setTimeout(function () {
+  setTimeout(() => {
     window.location.href = "dashboard.html";
   }, 2000);
 }
