@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banca 360 | Depósitos</title>
+    <link rel="icon" href="assets/isotipo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </a>
+        <nav class="sidebar-menu">
+          <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+          <a href="transferencias.html"><i class="fa-solid fa-paper-plane"></i> Transferencias</a>
+          <a href="pago-movil.html"><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a>
+          <a href="depositos.html" class="active"><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a>
+          <a href="historial.html"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+          <a href="perfil.html"><i class="fa-solid fa-user"></i> Perfil</a>
+          <a href="#" id="logoutBtn" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </nav>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header" style="text-align: center; display: block; margin-bottom: 2rem;">
+          <h1 class="title">Realizar Depósito</h1>
+          <p class="subtitle">Ingresa fondos a tu cuenta de manera inmediata</p>
+        </header>
+
+        <section class="dashboard-grid" style="display: block; max-width: 500px; margin: 0 auto;">
+          <div class="auth-card" style="background: var(--surface); padding: 30px; box-shadow: var(--shadow); border-radius: var(--radius); width: 100%;">
+            <form id="depositForm">
+              <div class="form-group">
+                <label for="amount">Monto a depositar (Bs.)</label>
+                <div class="input-wrap">
+                  <i class="fa-solid fa-money-bill"></i>
+                  <input type="number" id="amount" step="0.01" placeholder="0,00" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="concept">Concepto</label>
+                <div class="input-wrap">
+                  <i class="fa-solid fa-comment-dots"></i>
+                  <input type="text" id="concept" placeholder="Ej. Depósito inicial" required />
+                </div>
+              </div>
+
+              <p id="depositError" class="error"></p>
+              <p id="depositSuccess" class="success-text" style="margin-bottom: 15px; font-weight: 500;"></p>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                Confirmar Depósito
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/operaciones.js"></script>
+  </body>
+</html>
