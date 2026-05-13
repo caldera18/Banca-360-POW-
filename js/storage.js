@@ -7,12 +7,18 @@ function saveUser(user) {
 
 function getUser() {
   const user = localStorage.getItem(USER_KEY);
-
-  if (!user) {
-    return null;
-  }
-
+  if (!user) return null;
   return JSON.parse(user);
+}
+
+function updateUser(newData) {
+  const user = getUser();
+  if (user) {
+    const updatedUser = { ...user, ...newData };
+    saveUser(updatedUser);
+    return updatedUser;
+  }
+  return null;
 }
 
 function saveSecurityQuestions(securityData) {
@@ -21,10 +27,6 @@ function saveSecurityQuestions(securityData) {
 
 function getSecurityQuestions() {
   const securityData = localStorage.getItem(SECURITY_KEY);
-
-  if (!securityData) {
-    return null;
-  }
-
+  if (!securityData) return null;
   return JSON.parse(securityData);
 }
