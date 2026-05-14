@@ -109,12 +109,12 @@
 
             <div class="summary-row">
               <span>Entradas</span>
-              <strong class="success-text">+ Bs. 1.850,00</strong>
+              <strong class="success-text" id="summaryEntries">+ Bs. 0,00</strong>
             </div>
 
             <div class="summary-row">
               <span>Salidas</span>
-              <strong class="danger-text">- Bs. 620,00</strong>
+              <strong class="danger-text" id="summaryExits">- Bs. 0,00</strong>
             </div>
           </article>
         </section>
@@ -144,7 +144,11 @@
         <section class="transactions-card">
           <div class="section-header">
             <h2>Últimas transacciones</h2>
-            <a href="historial.html">Ver todas</a>
+            <div style="display:flex; gap:8px;">
+              <button class="icon-btn" data-filter="todas">Todas</button>
+              <button class="icon-btn" data-filter="entrada">Entradas</button>
+              <button class="icon-btn" data-filter="salida">Salidas</button>
+            </div>
           </div>
 
           <div class="transaction-list">
