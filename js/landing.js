@@ -12,14 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function handleGoLogin() {
-  const user = getUser();
-
-  if (!user) {
-    showLandingError("Primero debes registrarte para iniciar sesión.");
-    return;
-  }
-
-  window.location.href = "login.html";
+  window.location.href = "login.html"
 }
 
 function showLandingError(message) {
