@@ -30,3 +30,8 @@ function getSecurityQuestions() {
   if (!securityData) return null;
   return JSON.parse(securityData);
 }
+
+function getTransactionDirection(type) {
+  const incomeTypes = ["deposito", "transferencia_recibida"];
+  return incomeTypes.includes(type) ? "entrada" : "salida";
+}
