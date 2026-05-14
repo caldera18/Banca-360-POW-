@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banca 360 | Detalle de Movimiento</title>
+    <link rel="icon" href="assets/isotipo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </a>
+        <nav class="sidebar-menu">
+          <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+          <a href="transferencias.html"
+            ><i class="fa-solid fa-paper-plane"></i> Transferencias</a
+          >
+          <a href="pago-movil.html"
+            ><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a
+          >
+          <a href="depositos.html"
+            ><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a
+          >
+          <a href="historial.html"
+            ><i class="fa-solid fa-clock-rotate-left"></i> Historial</a
+          >
+          <a href="perfil.html"><i class="fa-solid fa-user"></i> Perfil</a>
+          <a href="#" id="logoutBtn" class="logout"
+            ><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a
+          >
+        </nav>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header">
+          <div>
+            <h1 class="title">Detalle de Movimiento</h1>
+            <p class="welcome-text">Información de la transacción</p>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn" data-theme-toggle type="button">
+              <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+          </div>
+        </header>
+
+        <section class="dashboard-grid" style="display: block">
+          <div class="detail-card" id="detailContainer"></div>
+
+          <div class="back-btn-container">
+            <a href="dashboard.html" class="btn btn-secondary">
+              <i class="fa-solid fa-arrow-left"></i> Volver al Dashboard
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 1. Obtener el ID de la URL
+        const params = new URLSearchParams(window.location.search);
+        const id = Number(params.get("id"));
+
+        // 2. Buscar la transacción en el storage
+        const user = getUser();
+        const tx = (user?.transactions || []).find((t) => t.id === id);
+        const container = document.querySelector("#detailContainer");
+
+        if (!tx) {
+          container.innerHTML = `
+                    <div class="auth-card-center">
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size: 50px; color: var(--warning); margin-bottom: 20px;"></i>
+                        <h3>Movimiento no encontrado</h3>
+                        <p class="muted">No se pudo recuperar la información del registro solicitado.</p>
+                    </div>`;
+          return;
+        }
+
+        // 3. Determinar dirección (entrada/salida) usando storage.js
+        const isIncome = getTransactionDirection(tx.type) === "entrada";
+
+        // 4. Renderizar el detalle profesional
+        container.innerHTML = `
+                <div class="detail-header">
+                    <div class="detail-icon ${isIncome ? "income" : "outcome"}">
+                        <i class="fa-solid ${isIncome ? "fa-arrow-down" : "fa-arrow-up"}"></i>
+                    </div>
+                    <h2 class="detail-amount ${isIncome ? "success-text" : "danger-text"}">
+                        ${isIncome ? "+" : "-"} Bs. ${tx.amount.toFixed(2)}
+                    </h2>
+                    <p><strong>${tx.description}</strong></p>
+                </div>
+
+                <div class="detail-list">
+                    <div class="detail-item">
+                        <span>Referencia ID</span>
+                        <strong>#${tx.id}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Fecha y hora</span>
+                        <strong>${tx.date}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Estado</span>
+                        <strong class="success-text">Completado</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Tipo de operación</span>
+                        <strong>${tx.type.replace("_", " ").toUpperCase()}</strong>
+                    </div>
+                    
+                    ${
+                      tx.extra?.bank
+                        ? `
+                        <div class="detail-item">
+                            <span>Banco Destino</span>
+                            <strong>${tx.extra.bank}</strong>
+                        </div>
+                    `
+                        : ""
+                    }
+                    ${
+                      tx.extra?.phone
+                        ? `
+                        <div class="detail-item">
+                            <span>Teléfono</span>
+                            <strong>${tx.extra.phone}</strong>
+                        </div>
+                    `
+                        : ""
+                    }
+                    ${
+                      tx.extra?.account
+                        ? `
+                        <div class="detail-item">
+                            <span>Cuenta Destino</span>
+                            <strong>${tx.extra.account}</strong>
+                        </div>
+                    `
+                        : ""
+                    }
+                </div>
+            `;
+      });
+
+      const logoutBtn = document.querySelector("#logoutBtn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (typeof clearSession === "function") clearSession();
+          window.location.href = "sesion-finalizada.html";
+        });
+      }
+    </script>
+  </body>
+</html>

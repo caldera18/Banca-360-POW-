@@ -66,7 +66,9 @@ function handleRegister(event) {
   const email = document.querySelector("#email").value.trim();
   const documentId = document.querySelector("#document").value.trim();
   const password = document.querySelector("#password").value.trim();
-  const confirmPassword = document.querySelector("#confirmPassword").value.trim();
+  const confirmPassword = document
+    .querySelector("#confirmPassword")
+    .value.trim();
 
   if (!name || !email || !documentId || !password || !confirmPassword) {
     showError("registerError", "Todos los campos son obligatorios.");
@@ -91,7 +93,7 @@ function handleRegister(event) {
     documentId,
     password,
     balance: 0,
-    transactions: []
+    transactions: [],
   };
 
   saveUser(userData);
@@ -161,6 +163,7 @@ function handleLogin(event) {
   if (spinner) spinner.classList.remove("hidden");
 
   setTimeout(() => {
+    saveSession(user.email);
     window.location.href = "dashboard.html";
   }, 2000);
 }

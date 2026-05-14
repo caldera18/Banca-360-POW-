@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function handleGoLogin() {
-  window.location.href = "login.html"
+  window.location.href = "login.html";
 }
 
 function showLandingError(message) {

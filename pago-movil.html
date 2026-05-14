@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banca 360 | Pago móvil</title>
+    <link rel="icon" href="assets/isotipo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-logo">
+          <img src="assets/logo.svg" alt="Banca 360" />
+        </a>
+        <nav class="sidebar-menu">
+          <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+          <a href="transferencias.html"
+            ><i class="fa-solid fa-paper-plane"></i> Transferencias</a
+          >
+          <a href="pago-movil.html" class="active"
+            ><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a
+          >
+          <a href="depositos.html"
+            ><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a
+          >
+          <a href="historial.html"
+            ><i class="fa-solid fa-clock-rotate-left"></i> Historial</a
+          >
+          <a href="perfil.html"><i class="fa-solid fa-user"></i> Perfil</a>
+          <a href="#" id="logoutBtn" class="logout"
+            ><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a
+          >
+        </nav>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header">
+          <div>
+            <h1 class="title">Pago móvil</h1>
+            <p class="welcome-text">Envía dinero de forma inmediata</p>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn" data-theme-toggle type="button">
+              <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+          </div>
+        </header>
+
+        <section
+          class="dashboard-grid"
+          style="display: block; max-width: 600px; margin: 0 auto"
+        >
+          <form
+            id="mobilePaymentForm"
+            class="auth-card"
+            style="
+              background: var(--surface);
+              padding: 30px;
+              box-shadow: var(--shadow);
+              border-radius: var(--radius);
+            "
+          >
+            <div class="form-group">
+              <label>Tipo de documento</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-id-card"></i>
+                <select id="mobileDocType" required>
+                  <option value="">Seleccione</option>
+                  <option value="V">Venezolano (V)</option>
+                  <option value="E">Extranjero (E)</option>
+                  <option value="J">Jurídico (J)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Cédula / RIF</label>
+              <div class="input-wrap">
+                <i class="fa-regular fa-address-card"></i>
+                <input
+                  type="text"
+                  id="mobileDocId"
+                  placeholder="Ej. 12345678"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Banco destino</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-building-columns"></i>
+                <select id="mobileBank" required>
+                  <option value="">Seleccione banco</option>
+                  <option value="0102">Banco de Venezuela</option>
+                  <option value="0134">Banesco</option>
+                  <option value="0105">Mercantil</option>
+                  <option value="0108">Provincial</option>
+                  <option value="0114">Bancaribe</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Teléfono móvil</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-phone"></i>
+                <input
+                  type="tel"
+                  id="mobilePhone"
+                  placeholder="Ej. 04121234567"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Monto (Bs.)</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-money-bill"></i>
+                <input
+                  type="number"
+                  step="0.01"
+                  id="mobileAmount"
+                  placeholder="0,00"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Concepto</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-comment-dots"></i>
+                <input
+                  type="text"
+                  id="mobileConcept"
+                  placeholder="¿Para qué es el pago?"
+                  required
+                />
+              </div>
+            </div>
+
+            <p class="error" id="mobileError"></p>
+            <p
+              class="success-text"
+              id="mobileSuccess"
+              style="margin-bottom: 15px; font-weight: 500"
+            ></p>
+
+            <button class="btn btn-primary" type="submit" style="width: 100%">
+              Confirmar Pago Móvil
+            </button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/operaciones.js"></script>
+  </body>
+</html>
