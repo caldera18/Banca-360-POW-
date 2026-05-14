@@ -1,8 +1,68 @@
-<!doctype html><html lang="es"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Banca 360</title><link rel="icon" href="assets/isotipo.svg" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" /><link rel="stylesheet" href="css/variables.css" /><link rel="stylesheet" href="css/global.css" /></head><body><div class="app-layout"><aside class="sidebar"><a href="dashboard.html" class="sidebar-logo"><img src="assets/logo.svg" alt="Banca 360" /></a><nav class="sidebar-menu"><a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a><a href="transferencias.html"><i class="fa-solid fa-paper-plane"></i> Transferencias</a><a href="pago-movil.html"><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a><a href="depositos.html"><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a><a href="#" id="logoutBtn" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a></nav></aside><main class="dashboard-main"><header class="dashboard-header"><h1 class="title" id="pageTitle"></h1><button class="icon-btn" data-theme-toggle><i class="fa-solid fa-circle-half-stroke"></i></button></header><section class="dashboard-grid" style="display:block;max-width:520px;"><div class="auth-card" style="background:var(--surface);padding:30px;box-shadow:var(--shadow);border-radius:var(--radius);"><form id="mainForm"></form></div></section></main></div><script src="js/storage.js"></script><script src="js/theme.js"></script><script src="js/operaciones.js"></script><script>
-const isTransfer = location.pathname.includes('transferencias');
-document.querySelector('#pageTitle').textContent = isTransfer ? 'Realizar Transferencia' : 'Realizar Pago Móvil';
-const form = document.querySelector('#mainForm');
-form.id = isTransfer ? 'transferForm' : 'mobilePaymentForm';
-form.innerHTML = isTransfer ? `<div class='form-group'><label>Cuenta destino</label><div class='input-wrap'><i class='fa-solid fa-building-columns'></i><input id='targetAccount' required/></div></div><div class='form-group'><label>Monto</label><div class='input-wrap'><i class='fa-solid fa-money-bill'></i><input type='number' id='transferAmount' step='0.01' required/></div></div><div class='form-group'><label>Concepto</label><div class='input-wrap'><i class='fa-solid fa-comment'></i><input id='transferConcept' required/></div></div><p id='transferError' class='error'></p><p id='transferSuccess' class='success-text'></p>` : `<div class='form-group'><label>Teléfono</label><div class='input-wrap'><i class='fa-solid fa-phone'></i><input id='mobilePhone' required/></div></div><div class='form-group'><label>Monto</label><div class='input-wrap'><i class='fa-solid fa-money-bill'></i><input type='number' id='mobileAmount' step='0.01' required/></div></div><div class='form-group'><label>Concepto</label><div class='input-wrap'><i class='fa-solid fa-comment'></i><input id='mobileConcept' required/></div></div><p id='mobileError' class='error'></p><p id='mobileSuccess' class='success-text'></p>`;
-form.insertAdjacentHTML('beforeend',"<button class='btn btn-primary' style='width:100%;'>Confirmar</button>");
-</script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pago móvil - Banca 360</title>
+  <link rel="icon" href="assets/isotipo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo"><img src="assets/logo.svg" alt="Banca 360" /></a>
+      <nav class="sidebar-menu">
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="transferencias.html"><i class="fa-solid fa-paper-plane"></i> Transferencias</a>
+        <a class="active" href="pago-movil.html"><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a>
+        <a href="depositos.html"><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a>
+        <a href="#" id="logoutBtn" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+      </nav>
+    </aside>
+    <main class="dashboard-main">
+      <header class="dashboard-header">
+        <h1 class="title">Pago móvil</h1>
+        <button class="icon-btn" data-theme-toggle><i class="fa-solid fa-circle-half-stroke"></i></button>
+      </header>
+      <section class="dashboard-grid" style="display:block;max-width:600px;">
+        <form id="mobilePaymentForm" class="auth-card" style="background:var(--surface);padding:30px;box-shadow:var(--shadow);border-radius:var(--radius);">
+          <div class="form-group">
+            <label>Tipo documento</label>
+            <select id="mobileDocType">
+              <option value="">Seleccione</option>
+              <option>Venezolano (V)</option>
+              <option>Extranjero (E)</option>
+              <option>Jurídico (J)</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Documento</label><input id="mobileDocId"/></div>
+          <div class="form-group">
+            <label>Banco</label>
+            <select id="mobileBank">
+              <option value="">Seleccione</option>
+              <option>Banca 360</option><option>Banco de Venezuela</option>
+              <option>Banesco</option><option>Mercantil</option>
+              <option>Provincial</option><option>BOD</option>
+              <option>Bancaribe</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Teléfono</label><input id="mobilePhone"/></div>
+          <div class="form-group"><label>Monto</label><input type="number" step="0.01" id="mobileAmount"/></div>
+          <div class="form-group"><label>Concepto</label><input id="mobileConcept"/></div>
+          <p class="error" id="mobileError"></p>
+          <p class="success-text" id="mobileSuccess"></p>
+          <button class="btn btn-primary" type="submit" style="width:100%;">Enviar pago móvil</button>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="js/storage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/operaciones.js"></script>
+</body>
+</html>
