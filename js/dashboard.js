@@ -2,109 +2,35 @@ document.addEventListener("DOMContentLoaded", function () {
   protectDashboard();
   renderUserName();
   renderBalance();
+  renderSummary();
+  setupTransactionFilters();
   renderTransactions();
   setupBalanceToggle();
   setupLogout();
 });
 
-function protectDashboard() {
-  const user = getUser();
-  if (!user) {
-    window.location.href = "index.html";
-  }
+let activeFilter = "todas";
+function protectDashboard() { if (!getUser() || !hasSession()) window.location.href = "index.html"; }
+function renderUserName() { const user = getUser(); const el = document.querySelector("#userName"); if (user && el) el.textContent = user.name; }
+function formatCurrency(amount) { return new Intl.NumberFormat("es-VE", { style: "currency", currency: "VES", minimumFractionDigits: 2 }).format(amount).replace("VES", "Bs."); }
+function renderBalance() { const user = getUser(); const el = document.querySelector("#balanceAmount"); if (user && el) el.textContent = formatCurrency(user.balance); }
+function renderSummary() {
+  const t = getUser()?.transactions || [];
+  const entries = t.filter((x) => getTransactionDirection(x.type) === "entrada").reduce((a, x) => a + x.amount, 0);
+  const exits = t.filter((x) => getTransactionDirection(x.type) === "salida").reduce((a, x) => a + x.amount, 0);
+  document.querySelector("#summaryEntries").textContent = `+ ${formatCurrency(entries)}`;
+  document.querySelector("#summaryExits").textContent = `- ${formatCurrency(exits)}`;
 }
-
-function renderUserName() {
-  const user = getUser();
-  const userNameElement = document.querySelector("#userName");
-  if (user && userNameElement) {
-    userNameElement.textContent = user.name;
-  }
-}
-
-function formatCurrency(amount) {
-  return new Intl.NumberFormat("es-VE", {
-    style: "currency",
-    currency: "VES",
-    minimumFractionDigits: 2,
-  }).format(amount).replace("VES", "Bs.");
-}
-
-function renderBalance() {
-  const user = getUser();
-  const balanceAmount = document.querySelector("#balanceAmount");
-  if (user && balanceAmount) {
-    balanceAmount.textContent = formatCurrency(user.balance);
-  }
-}
-
+function setupTransactionFilters() { document.querySelectorAll("[data-filter]").forEach((btn) => btn.addEventListener("click", () => { activeFilter = btn.dataset.filter; renderTransactions(); })); }
 function renderTransactions() {
-  const user = getUser();
-  const container = document.querySelector(".transaction-list");
-  if (!user || !container) return;
-
-  const transactions = user.transactions || [];
-  
-  if (transactions.length === 0) {
-    container.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--muted);">No hay movimientos recientes</p>';
-    return;
-  }
-
-  const lastThree = [...transactions].reverse().slice(0, 3);
+  const user = getUser(); const container = document.querySelector(".transaction-list"); if (!user || !container) return;
+  const filtered = (user.transactions || []).filter((tx) => activeFilter === "todas" || getTransactionDirection(tx.type) === activeFilter);
+  if (!filtered.length) { container.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--muted);">No hay movimientos para este filtro</p>'; return; }
   container.innerHTML = "";
-
-  lastThree.forEach((tx) => {
-    const isIncome = tx.type === "deposito" || tx.type === "transferencia_recibida";
-    const iconClass = isIncome ? "fa-arrow-down" : "fa-arrow-up";
-    const statusClass = isIncome ? "income" : "outcome";
-    const amountClass = isIncome ? "success-text" : "danger-text";
-    const prefix = isIncome ? "+" : "-";
-
-    const html = `
-      <article class="transaction-item">
-        <div class="transaction-icon ${statusClass}">
-          <i class="fa-solid ${iconClass}"></i>
-        </div>
-        <div>
-          <h4>${tx.description}</h4>
-          <p>${tx.date}</p>
-        </div>
-        <strong class="${amountClass}">${prefix} ${formatCurrency(tx.amount)}</strong>
-      </article>
-    `;
-    container.insertAdjacentHTML("beforeend", html);
+  [...filtered].reverse().slice(0, 6).forEach((tx) => {
+    const inx = getTransactionDirection(tx.type) === "entrada";
+    container.insertAdjacentHTML("beforeend", `<article class="transaction-item"><a href="movimiento.html?id=${tx.id}" style="display:flex;gap:16px;align-items:center;width:100%;color:inherit;"><div class="transaction-icon ${inx ? "income" : "outcome"}"><i class="fa-solid ${inx ? "fa-arrow-down" : "fa-arrow-up"}"></i></div><div style="flex:1;"><h4>${tx.description}</h4><p>${tx.date}</p></div><strong class="${inx ? "success-text" : "danger-text"}">${inx ? "+" : "-"} ${formatCurrency(tx.amount)}</strong></a></article>`);
   });
 }
-
-function setupBalanceToggle() {
-  const toggleButton = document.querySelector("#toggleBalanceBtn");
-  const balanceAmount = document.querySelector("#balanceAmount");
-
-  if (!toggleButton || !balanceAmount) return;
-
-  let isVisible = true;
-
-  toggleButton.addEventListener("click", function () {
-    isVisible = !isVisible;
-    const user = getUser();
-
-    if (isVisible) {
-      balanceAmount.textContent = formatCurrency(user.balance);
-      toggleButton.innerHTML = '<i class="fa-regular fa-eye"></i>';
-    } else {
-      balanceAmount.textContent = "Bs. •••••••";
-      toggleButton.innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
-    }
-  });
-}
-
-function setupLogout() {
-  const logoutBtn = document.querySelector("#logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      localStorage.removeItem("banca360User");
-      window.location.href = "index.html";
-    });
-  }
-}
+function setupBalanceToggle() { const b = document.querySelector("#toggleBalanceBtn"), a = document.querySelector("#balanceAmount"); if (!b || !a) return; let isVisible = true; b.addEventListener("click", () => { isVisible = !isVisible; const u = getUser(); a.textContent = isVisible ? formatCurrency(u.balance) : "Bs. •••••••"; b.innerHTML = isVisible ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>'; }); }
+function setupLogout() { const b = document.querySelector("#logoutBtn"); if (b) b.addEventListener("click", (e) => { e.preventDefault(); clearSession(); window.location.href = "sesion-finalizada.html"; }); }

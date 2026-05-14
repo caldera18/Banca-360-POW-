@@ -161,6 +161,7 @@ function handleLogin(event) {
   if (spinner) spinner.classList.remove("hidden");
 
   setTimeout(() => {
+    saveSession(user.email);
     window.location.href = "dashboard.html";
   }, 2000);
 }

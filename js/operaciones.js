@@ -1,69 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
+  protectView();
+  setupLogout();
   const depositForm = document.querySelector("#depositForm");
-
-  if (depositForm) {
-    depositForm.addEventListener("submit", handleDeposit);
-  }
+  const transferForm = document.querySelector("#transferForm");
+  const mobilePaymentForm = document.querySelector("#mobilePaymentForm");
+  if (depositForm) depositForm.addEventListener("submit", handleDeposit);
+  if (transferForm) transferForm.addEventListener("submit", handleTransfer);
+  if (mobilePaymentForm) mobilePaymentForm.addEventListener("submit", handleMobilePayment);
 });
-
-function handleDeposit(event) {
-  event.preventDefault();
-
-  const amountInput = document.querySelector("#amount");
-  const conceptInput = document.querySelector("#concept");
-  const errorElement = document.querySelector("#depositError");
-  const successElement = document.querySelector("#depositSuccess");
-
-  const amount = parseFloat(amountInput.value);
-  const concept = conceptInput.value.trim();
-
-  if (isNaN(amount) || amount <= 0) {
-    showFeedback(errorElement, successElement, "Por favor, ingresa un monto válido mayor a cero.", true);
-    return;
-  }
-
-  if (!concept) {
-    showFeedback(errorElement, successElement, "El concepto es obligatorio.", true);
-    return;
-  }
-
-  const user = getUser();
-  if (!user) return;
-
-  const newTransaction = {
-    id: Date.now(),
-    type: "deposito",
-    amount: amount,
-    description: concept,
-    date: new Date().toLocaleString("es-VE", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-  };
-
-  user.balance += amount;
-  user.transactions.push(newTransaction);
-
-  saveUser(user);
-
-  showFeedback(
-    successElement,
-    errorElement,
-    `¡Depósito de Bs. ${amount.toLocaleString("es-VE", { minimumFractionDigits: 2 })} realizado con éxito!`,
-    false
-  );
-
-  depositForm.reset();
-
-  setTimeout(() => {
-    window.location.href = "dashboard.html";
-  }, 2000);
-}
-
-function showFeedback(showEl, hideEl, message, isError) {
-  showEl.textContent = message;
-  hideEl.textContent = "";
-}
+function protectView() { if (!getUser() || !hasSession()) window.location.href = "index.html"; }
+function setupLogout() { const b = document.querySelector("#logoutBtn"); if (!b) return; b.addEventListener("click", (e) => { e.preventDefault(); clearSession(); window.location.href = "sesion-finalizada.html"; }); }
+function buildTransaction(type, amount, description, extra = {}) { return { id: Date.now(), type, amount, description, extra, date: new Date().toLocaleString("es-VE", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) }; }
+function showReceipt(title, tx) { localStorage.setItem("banca360LastReceipt", JSON.stringify({ title, tx })); window.location.href = `comprobante.html?id=${tx.id}`; }
+function handleDeposit(event) { event.preventDefault(); const amount = parseFloat(document.querySelector("#amount").value); const concept = document.querySelector("#concept").value.trim(); const e = document.querySelector("#depositError"), s = document.querySelector("#depositSuccess"); if (isNaN(amount) || amount <= 0 || !concept) return showFeedback(e, s, "Completa monto válido y concepto."); const user = getUser(); const tx = buildTransaction("deposito", amount, concept); user.balance += amount; user.transactions.push(tx); saveUser(user); showFeedback(s, e, "Depósito realizado con éxito."); event.target.reset(); }
+function handleTransfer(event) { event.preventDefault(); const docType = document.querySelector("#transferDocType").value; const docId = document.querySelector("#transferDocId").value.trim(); const bank = document.querySelector("#transferBank").value; const account = document.querySelector("#targetAccount").value.trim(); const amount = parseFloat(document.querySelector("#transferAmount").value); const concept = document.querySelector("#transferConcept").value.trim(); const e = document.querySelector("#transferError"), s = document.querySelector("#transferSuccess"); const user = getUser(); if (!docType || !docId || !bank || !account || !concept || isNaN(amount) || amount <= 0) return showFeedback(e, s, "Completa todos los campos."); if (amount > user.balance) return showFeedback(e, s, "Saldo insuficiente."); const tx = buildTransaction("transferencia", amount, `Transferencia a ${account} - ${concept}`, { docType, docId, bank, account }); user.balance -= amount; user.transactions.push(tx); saveUser(user); showFeedback(s, e, "Transferencia realizada."); event.target.reset(); showReceipt("Comprobante de transferencia", tx); }
+function handleMobilePayment(event) { event.preventDefault(); const docType = document.querySelector("#mobileDocType").value; const docId = document.querySelector("#mobileDocId").value.trim(); const bank = document.querySelector("#mobileBank").value; const phone = document.querySelector("#mobilePhone").value.trim(); const amount = parseFloat(document.querySelector("#mobileAmount").value); const concept = document.querySelector("#mobileConcept").value.trim(); const e = document.querySelector("#mobileError"), s = document.querySelector("#mobileSuccess"); const user = getUser(); if (!docType || !docId || !bank || !phone || !concept || isNaN(amount) || amount <= 0) return showFeedback(e, s, "Completa todos los campos."); if (amount > user.balance) return showFeedback(e, s, "Saldo insuficiente."); const tx = buildTransaction("pago_movil", amount, `Pago móvil a ${phone} - ${concept}`, { docType, docId, bank, phone }); user.balance -= amount; user.transactions.push(tx); saveUser(user); showFeedback(s, e, "Pago móvil realizado."); event.target.reset(); showReceipt("Comprobante de pago móvil", tx); }
+function showFeedback(showEl, hideEl, message) { showEl.textContent = message; hideEl.textContent = ""; }
