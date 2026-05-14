@@ -14,6 +14,7 @@ function getUser() {
 function saveSession(email) {
   localStorage.setItem(SESSION_KEY, email);
 }
+
 function getSession() {
   return localStorage.getItem(SESSION_KEY);
 }

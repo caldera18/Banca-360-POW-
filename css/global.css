@@ -1146,3 +1146,72 @@ select option {
   color: var(--border);
   font-size: 12px;
 }
+
+/* =========================================
+   PERFIL Y CONFIGURACIÓN
+========================================= */
+.profile-container {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.profile-section-title {
+  font-size: 22px;
+  text-align: left;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.session-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.session-title {
+  display: block;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.session-desc {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.btn-danger-outline {
+  background: rgba(229, 57, 53, 0.1);
+  color: var(--danger);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-danger-outline:hover {
+  background: rgba(229, 57, 53, 0.2);
+}

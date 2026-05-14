@@ -7,108 +7,158 @@
     <link rel="icon" href="assets/isotipo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/global.css" />
   </head>
   <body>
     <div class="app-layout">
-
       <aside class="sidebar">
         <a href="dashboard.html" class="sidebar-logo">
           <img src="assets/logo.svg" alt="Banca 360" />
         </a>
         <nav class="sidebar-menu">
           <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
-          <a href="transferencias.html"><i class="fa-solid fa-paper-plane"></i> Transferencias</a>
-          <a href="pago-movil.html"><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a>
-          <a href="depositos.html"><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a>
-          <a href="historial.html"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
-          <a href="perfil.html" class="active"><i class="fa-solid fa-user"></i> Perfil</a>
+          <a href="transferencias.html"
+            ><i class="fa-solid fa-paper-plane"></i> Transferencias</a
+          >
+          <a href="pago-movil.html"
+            ><i class="fa-solid fa-mobile-screen"></i> Pago móvil</a
+          >
+          <a href="depositos.html"
+            ><i class="fa-solid fa-money-bill-transfer"></i> Depósitos</a
+          >
+          <a href="historial.html"
+            ><i class="fa-solid fa-clock-rotate-left"></i> Historial</a
+          >
+          <a href="perfil.html" class="active"
+            ><i class="fa-solid fa-user"></i> Perfil</a
+          >
+          <a href="#" id="logoutBtnSidebar" class="logout-btn"
+            ><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a
+          >
         </nav>
       </aside>
 
       <main class="dashboard-main">
-        <!-- aquí va el contenido del perfil -->
-         <header class="dashboard-header">
-            <div>
-                <p class="welcome-text">Mi cuenta</p>
-                <h1>Perfil y configuracion</h1>
-            </div>
-         </header>
-         <section class="auth-card" style="max-width: 500px;">
-            <h2 class="title" style="font-size: 22px; text-align: left;">Datos personales</h2>
-             <div class="form-group">
-                <label>Nombre completo</label>
-                <div class="input-wrap">
+        <header class="dashboard-header">
+          <div>
+            <h1 class="title">Perfil y configuración</h1>
+            <p class="welcome-text">Gestiona tu cuenta y seguridad</p>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn" data-theme-toggle type="button">
+              <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+          </div>
+        </header>
+
+        <section class="dashboard-grid profile-container">
+          <div class="auth-card profile-card">
+            <h2 class="title profile-section-title">Datos personales</h2>
+
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <div class="input-wrap">
                 <i class="fa-regular fa-user"></i>
                 <input type="text" id="profileName" disabled />
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Correo electronico</label>
-                <div class="input-wrap">
-                    <i class="fa-regular fa-envelope"></i>
-                    <input type="text" id="profileEmail" disabled />
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Cédula</label>
-                <div class="input-wrap">
-                    <i class="fa-regular fa-id-card"></i>
-                    <input type="text" id="profileDocument" disabled />
-                </div>
-            </div>
-         </section>
-         <section class="auth-card" style="max-width: 500px; margin-top: 24px">
-            <h2 class="title" style="font-size: 22px; text-align: left;">Cambiar la contraseña</h2>
-
-            <div class="form-group">
-                <label>Contraseña actual</label>
-                <div class="input-wrap">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="currentPassword" placeholder="Ingresa tu contraseña"/>
-                </div>
+              </div>
             </div>
 
             <div class="form-group">
-                <label>Nueva contraseña</label>
-                <div class="input-wrap">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="newPassword" placeholder="Minimo 6 numeros"/>
-                </div>
+              <label>Correo electrónico</label>
+              <div class="input-wrap">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="text" id="profileEmail" disabled />
+              </div>
             </div>
-            <div class="form-group">
-                <label>Confirmar nueva contraseña</label>
-                <div class="input-wrap">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="confirmNewPassword" placeholder="Repite la nueva contraseña"/>
 
-                </div>
+            <div class="form-group">
+              <label>Cédula</label>
+              <div class="input-wrap">
+                <i class="fa-regular fa-id-card"></i>
+                <input type="text" id="profileDocument" disabled />
+              </div>
+            </div>
+          </div>
+
+          <div class="auth-card profile-card">
+            <h2 class="title profile-section-title">Cambiar la contraseña</h2>
+
+            <div class="form-group">
+              <label>Contraseña actual</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  placeholder="Ingresa tu contraseña"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Nueva contraseña</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                  type="password"
+                  id="newPassword"
+                  placeholder="Mínimo 6 números"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Confirmar nueva contraseña</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                  type="password"
+                  id="confirmNewPassword"
+                  placeholder="Repite la nueva contraseña"
+                />
+              </div>
             </div>
 
             <p id="passwordError" class="error"></p>
-            <p id="passwordSuccess" class="success-text" style="margin-bottom: 15px"></p>
+            <p id="passwordSuccess" class="success-text"></p>
 
-            <button class="btn btn-primary" id="changePasswordBtn">
-                Cambiar contraseña
+            <button class="btn btn-primary btn-full" id="changePasswordBtn">
+              Actualizar contraseña
             </button>
-         </section>
+          </div>
 
-        <section class="auth-card" style="max-width: 500px; margin-top: 24px;">
-        <h2 class="title" style="font-size: 22px; text-align: left;">Sesión</h2>
-        
-        <button class="btn btn-primary" id="logoutBtn" style="background: var(--danger);">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Cerrar sesión
-        </button>
+          <div class="auth-card profile-card">
+            <h2 class="title profile-section-title">Sesión</h2>
+
+            <div class="session-row">
+              <div class="session-info">
+                <strong class="session-title"
+                  >Cerrar sesión en este equipo</strong
+                >
+                <span class="session-desc"
+                  >Finaliza tu actividad de forma segura.</span
+                >
+              </div>
+              <button class="btn-danger-outline" id="logoutBtnMain">
+                <i class="fa-solid fa-right-from-bracket"></i> Salir
+              </button>
+            </div>
+          </div>
         </section>
       </main>
-
     </div>
 
     <script src="js/storage.js"></script>
+    <script src="js/theme.js"></script>
     <script src="js/perfil.js"></script>
   </body>
 </html>
